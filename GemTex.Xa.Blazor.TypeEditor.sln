@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36203.30
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvTex.XA.Blazor.TypeEditor", "AvTex.XA.Blazor.TypeEditor.csproj", "{DDB0ECC3-5DC5-4DD4-A00E-EEBCA96289F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GemTex.Xa.Blazor.TypeEditor", "GemTex.Xa.Blazor.TypeEditor.csproj", "{DDB0ECC3-5DC5-4DD4-A00E-EEBCA96289F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

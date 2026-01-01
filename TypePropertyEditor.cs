@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using System.ComponentModel;
 
-namespace AvTex.ExpressApp.Blazor.Editors;
+namespace GemTex.ExpressApp.Blazor.Editors;
 
 public class TypePropertyEditor : DevExpress.ExpressApp.Blazor.Editors.TypePropertyEditor
 {
