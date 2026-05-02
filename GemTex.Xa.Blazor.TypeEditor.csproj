@@ -4,8 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	<AssemblyVersion>24.2.0</AssemblyVersion>
-	<Version>24.2.0</Version>
+	<AssemblyVersion>24.2.1</AssemblyVersion>
+	<Version>24.2.1</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<RepositoryUrl>https://github.com/farzadjalalimajd/GemTex.Xa.Blazor.TypeEditor</RepositoryUrl>
 	<Title>ExpressApp Blazor TypeEditor</Title>

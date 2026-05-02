@@ -1,9 +1,10 @@
 ﻿using DevExpress.Blazor;
+using DevExpress.Data.Internal;
 using DevExpress.ExpressApp.Blazor.Components.Models;
 using DevExpress.ExpressApp.Blazor.Editors.Adapters;
 using DevExpress.ExpressApp.Model;
-using DevExpress.Persistent.Base;
 using System.ComponentModel;
+using DevExpress.ExpressApp.Utils.Reflection;
 
 namespace GemTex.ExpressApp.Blazor.Editors;
 
@@ -13,7 +14,24 @@ public class TypePropertyEditor : DevExpress.ExpressApp.Blazor.Editors.TypePrope
 
     public TypePropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model)
     {
-        typeConverter = new CustomLocalizedClassInfoTypeConverter();
+        TypeConverterAttribute typeConverterAttribute = base.MemberInfo.FindAttribute<TypeConverterAttribute>();
+        if (typeConverterAttribute != null)
+        {
+            Type knownUserType = SafeTypeResolver.GetKnownUserType(typeConverterAttribute.ConverterTypeName);
+            if (knownUserType == typeof(DevExpress.Persistent.Base.Security.SecurityTargetTypeConverter))
+            {
+                knownUserType = typeof(SecurityTargetTypeConverter);
+            }
+            else if (knownUserType == typeof(DevExpress.Persistent.Base.ReportDataTypeConverter))
+            {
+                knownUserType = typeof(ReportDataTypeConverter);
+            }
+            typeConverter = (TypeConverter)TypeHelper.CreateInstance(knownUserType);
+        }
+        else
+        {
+            typeConverter = new LocalizedClassInfoTypeConverter();
+        }
     }
 
     protected override IComponentAdapter CreateComponentAdapter()
@@ -37,10 +55,26 @@ public class TypePropertyEditor : DevExpress.ExpressApp.Blazor.Editors.TypePrope
     }
 }
 
-public class CustomLocalizedClassInfoTypeConverter : LocalizedClassInfoTypeConverter
+public class LocalizedClassInfoTypeConverter : DevExpress.Persistent.Base.LocalizedClassInfoTypeConverter
 {
     protected override string GetClassCaption(string fullName)
     {
-        return $"{base.GetClassCaption(fullName)} ({fullName})";
+        return $"{base.GetClassCaption(fullName)} ({fullName[(fullName.LastIndexOf('.') + 1)..]})";
+    }
+}
+
+public class SecurityTargetTypeConverter : DevExpress.Persistent.Base.Security.SecurityTargetTypeConverter
+{
+    protected override string GetClassCaption(string fullName)
+    {
+        return $"{base.GetClassCaption(fullName)} ({fullName[(fullName.LastIndexOf('.') + 1)..]})";
+    }
+}
+
+public class ReportDataTypeConverter : DevExpress.Persistent.Base.ReportDataTypeConverter
+{
+    protected override string GetClassCaption(string fullName)
+    {
+        return $"{base.GetClassCaption(fullName)} ({fullName[(fullName.LastIndexOf('.') + 1)..]})";
     }
 }
